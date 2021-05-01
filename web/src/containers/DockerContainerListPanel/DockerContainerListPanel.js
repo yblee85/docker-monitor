@@ -4,7 +4,7 @@ const DockerContainerListPanel = ({container_stats, onInspect}) => {
     
     return (
         <>
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th>Image</th>
@@ -25,7 +25,7 @@ const DockerContainerListPanel = ({container_stats, onInspect}) => {
                         })
                         :
                         (<tr>
-                            <td colspan="8">No Running Containers</td>
+                            <td colSpan="8">No Running Containers</td>
                         </tr>)
                     }
                 </tbody>
