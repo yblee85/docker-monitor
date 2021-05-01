@@ -13,25 +13,31 @@ function App() {
       alert(strResp);
   };
 
-  const [ containerStats, setContainerStats ] = useState([]);
-
-  useEffect(()=>{
-    fetchStats()
-    .then((data)=>setContainerStats(data))
-  }, [])
-
   const fetchStats = async () => {
     const res = await fetchContainerStats();
-    // const res = mock_container_stats;
     console.table(res);
     return res;
   }
+
+  const refreshStats = () => {
+    (async () => {
+      const res = await fetchStats();
+      setContainerStats(res);
+    })();
+  };
+
+  const [ containerStats, setContainerStats ] = useState([]);
+
+  useEffect(()=>{
+    refreshStats();
+  }, [])
+  
 
   const lastUpdated = new Date();
 
   return (
     <div className="App">
-        <Header lastUpdated={lastUpdated} />
+        <Header lastUpdated={lastUpdated} onRefresh={refreshStats} />
         <DockerContainerListPanel container_stats={containerStats} onInspect={onInspect} />
     </div>
   );
