@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  
+  web:
+    build: 
+      dockerfile: Dockerfile
+      context: ./web
+    # ports:
+    #   - '3001:80'
+    expose: ['80']
+    networks:
+      - front-tier
+      - back-tier
+
+  api:
+    environment: 
+      - PORT=80
+    build:
+      dockerfile: Dockerfile
+      context: ./api
+    # ports:
+    #   - '3002:3002'
+    expose: ['80']
+    volumes: 
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - back-tier
+    # depends_on: 
+    #   - db
+
+  revproxy:
+    build:
+      dockerfile: Dockerfile
+      context: ./revproxy
+    ports: 
+      - '8080:80'
+    networks:
+      - front-tier
+      - back-tier
+    depends_on: 
+      - web
+      - api
+
+networks:
+  # The presence of these objects is sufficient to define them
+  front-tier: {}
+  back-tier: {}
+  
