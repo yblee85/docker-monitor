@@ -3,6 +3,11 @@ import Button from 'react-bootstrap/Button';
 const ContainerStatus = ({ status, onInspect }) => {
     const { Id, Names, Image, Created, State, Status, Ports } = status;
 
+    let formattedImage = Image;
+    if(Image.indexOf("@sha256:")>=0) {
+        const indexOfAt = Image.indexOf("@");
+        formattedImage = Image.substring(0, indexOfAt);
+    }
     // console.log(status);
 
     const name = Names[0];
@@ -12,7 +17,7 @@ const ContainerStatus = ({ status, onInspect }) => {
     return (
         <>
             <tr>
-                <td>{Image}</td>
+                <td>{formattedImage}</td>
                 <td>{name}</td>
                 <td>{PublicPort}</td>
                 <td>{PrivatePort}</td>

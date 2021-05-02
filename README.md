@@ -22,7 +22,7 @@ agent : get docker containers stat
 In the project directory, you can run:
 
 ### `docker-compose up` and go to localhsot:8080
-
+### if you want to test swarm mode : in terminal, run sh docker_swarm_test.sh
 
 ## Roadmap
 1. create an api (+ agent) that gets local machines containers stat
