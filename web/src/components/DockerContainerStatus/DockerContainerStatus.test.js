@@ -3,6 +3,7 @@ import ContainerStatus from './DockerContainerStatus';
 
 const mockData = {
     Id : "test",
+    Image : "test_image",
     Names : ['/test'],
     Ports : [ { PrivatePort : 80 } ],
     Created : 1000000
